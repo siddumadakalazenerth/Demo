@@ -6,12 +6,17 @@ import { Reveal } from "@/components/reveal";
 import { PropertyCard } from "@/components/property-card";
 import { properties, personasFor, personaLabels, type Persona } from "@/lib/properties";
 
-const personas = Object.keys(personaLabels) as Persona[];
+// Checked lazily (at request time, not module top-level) so it never runs before
+// `personaLabels` has finished evaluating in bundlers that split routes into
+// separately-loaded chunks (e.g. Nitro's Vercel preset).
+function isPersona(value: string): value is Persona {
+  return Object.prototype.hasOwnProperty.call(personaLabels, value);
+}
 
 export const Route = createFileRoute("/collections/$persona")({
   loader: ({ params }) => {
-    if (!personas.includes(params.persona as Persona)) throw notFound();
-    return { persona: params.persona as Persona };
+    if (!isPersona(params.persona)) throw notFound();
+    return { persona: params.persona };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Collection not found — Zenrth" }] };

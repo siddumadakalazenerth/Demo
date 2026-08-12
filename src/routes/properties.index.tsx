@@ -21,8 +21,6 @@ import {
 } from "@/lib/properties";
 import { citiesInfo } from "@/lib/locations";
 
-const amenityCategories = Object.keys(amenityCategoryLabels) as AmenityCategory[];
-
 const searchSchema = z.object({
   type: z.string().max(40).optional(),
   price: z.string().max(40).optional(),
@@ -55,6 +53,9 @@ export const Route = createFileRoute("/properties/")({
 });
 
 function PropertiesPage() {
+  // Computed inside the component (render time), not module top-level — see
+  // collections.$persona.tsx for why eager Object.keys() on an import is unsafe here.
+  const amenityCategories = Object.keys(amenityCategoryLabels) as AmenityCategory[];
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/properties/" });
   const amenities = (search.amenities ?? []) as AmenityCategory[];

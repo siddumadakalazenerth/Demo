@@ -78,37 +78,6 @@ const faqs = [
   },
 ];
 
-const videoTestimonials: VideoTestimonial[] = [
-  {
-    name: "Ananya Rao",
-    role: "Buyer",
-    quote:
-      "We found a 3BHK in Whitefield within our budget in under three weeks. The whole process — tours, paperwork, negotiation — was handled with real care.",
-    thumbnail: propertyDetails["p6"]?.gallery[2] ?? properties[5]!.img,
-  },
-  {
-    name: "Vikram Chauhan",
-    role: "Seller",
-    quote:
-      "Listing was simple and we had qualified enquiries within days. The price comparison data helped us set a realistic asking price.",
-    thumbnail: propertyDetails["p20"]?.gallery[1] ?? properties[19]!.img,
-  },
-  {
-    name: "Priya Nair",
-    role: "Buyer",
-    quote:
-      "As a first-time buyer I expected stress. Instead I got clear numbers, honest advice about RERA status, and a home I still love.",
-    thumbnail: propertyDetails["p9"]?.gallery[2] ?? properties[8]!.img,
-  },
-  {
-    name: "Sunita Deshmukh",
-    role: "Seller",
-    quote:
-      "Our heritage home in Greater Kailash sold close to asking price. Zenrth's builder verification and photos made a real difference.",
-    thumbnail: propertyDetails["p20"]?.gallery[3] ?? properties[19]!.img,
-  },
-];
-
 function Select({
   label,
   value,
@@ -153,11 +122,12 @@ const intents: { key: Intent; label: string }[] = [
   { key: "sell", label: "Sell my property" },
 ];
 
-const hotListings = properties
-  .filter((p) => propertyDetails[p.id]?.tags.includes("Hot Listing"))
-  .slice(0, 3);
-
 function Hero() {
+  // Computed at render time, not module top-level — see collections.$persona.tsx
+  // for why eagerly deriving from an import at module scope is unsafe here.
+  const hotListings = properties
+    .filter((p) => propertyDetails[p.id]?.tags.includes("Hot Listing"))
+    .slice(0, 3);
   const navigate = useNavigate();
   const [intent, setIntent] = useState<Intent>("buy");
   const [type, setType] = useState("");
@@ -647,6 +617,39 @@ function Faq() {
 }
 
 function Testimonial() {
+  // Computed at render time, not module top-level — see collections.$persona.tsx
+  // for why eagerly deriving from an import at module scope is unsafe here.
+  const videoTestimonials: VideoTestimonial[] = [
+    {
+      name: "Ananya Rao",
+      role: "Buyer",
+      quote:
+        "We found a 3BHK in Whitefield within our budget in under three weeks. The whole process — tours, paperwork, negotiation — was handled with real care.",
+      thumbnail: propertyDetails["p6"]?.gallery[2] ?? properties[5]!.img,
+    },
+    {
+      name: "Vikram Chauhan",
+      role: "Seller",
+      quote:
+        "Listing was simple and we had qualified enquiries within days. The price comparison data helped us set a realistic asking price.",
+      thumbnail: propertyDetails["p20"]?.gallery[1] ?? properties[19]!.img,
+    },
+    {
+      name: "Priya Nair",
+      role: "Buyer",
+      quote:
+        "As a first-time buyer I expected stress. Instead I got clear numbers, honest advice about RERA status, and a home I still love.",
+      thumbnail: propertyDetails["p9"]?.gallery[2] ?? properties[8]!.img,
+    },
+    {
+      name: "Sunita Deshmukh",
+      role: "Seller",
+      quote:
+        "Our heritage home in Greater Kailash sold close to asking price. Zenrth's builder verification and photos made a real difference.",
+      thumbnail: propertyDetails["p20"]?.gallery[3] ?? properties[19]!.img,
+    },
+  ];
+
   return (
     <section className="mx-auto max-w-6xl px-6 pb-20">
       <Reveal>

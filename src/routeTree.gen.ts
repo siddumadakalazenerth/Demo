@@ -10,11 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as R360ShootRouteImport } from './routes/360-shoot'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SellWithUsRouteImport } from './routes/sell-with-us'
 import { Route as SellerPerksRouteImport } from './routes/seller-perks'
 import { Route as SoldRouteImport } from './routes/sold'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -33,9 +37,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R360ShootRoute = R360ShootRouteImport.update({
+  id: '/360-shoot',
+  path: '/360-shoot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -48,6 +62,11 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
@@ -56,6 +75,11 @@ const PricingRoute = PricingRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellWithUsRoute = SellWithUsRouteImport.update({
+  id: '/sell-with-us',
+  path: '/sell-with-us',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SellerPerksRoute = SellerPerksRouteImport.update({
@@ -121,11 +145,15 @@ const PropertiesIdRoute = PropertiesIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/360-shoot': typeof R360ShootRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/sell-with-us': typeof SellWithUsRoute
   '/seller-perks': typeof SellerPerksRoute
   '/sold': typeof SoldRoute
   '/terms': typeof TermsRoute
@@ -141,11 +169,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/360-shoot': typeof R360ShootRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/sell-with-us': typeof SellWithUsRoute
   '/seller-perks': typeof SellerPerksRoute
   '/sold': typeof SoldRoute
   '/terms': typeof TermsRoute
@@ -162,11 +194,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/360-shoot': typeof R360ShootRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/sell-with-us': typeof SellWithUsRoute
   '/seller-perks': typeof SellerPerksRoute
   '/sold': typeof SoldRoute
   '/terms': typeof TermsRoute
@@ -184,11 +220,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/360-shoot'
     | '/about'
+    | '/account'
     | '/contact'
     | '/faq'
+    | '/login'
     | '/pricing'
     | '/privacy'
+    | '/sell-with-us'
     | '/seller-perks'
     | '/sold'
     | '/terms'
@@ -204,11 +244,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/360-shoot'
     | '/about'
+    | '/account'
     | '/contact'
     | '/faq'
+    | '/login'
     | '/pricing'
     | '/privacy'
+    | '/sell-with-us'
     | '/seller-perks'
     | '/sold'
     | '/terms'
@@ -224,11 +268,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/360-shoot'
     | '/about'
+    | '/account'
     | '/contact'
     | '/faq'
+    | '/login'
     | '/pricing'
     | '/privacy'
+    | '/sell-with-us'
     | '/seller-perks'
     | '/sold'
     | '/terms'
@@ -245,11 +293,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R360ShootRoute: typeof R360ShootRoute
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
+  SellWithUsRoute: typeof SellWithUsRoute
   SellerPerksRoute: typeof SellerPerksRoute
   SoldRoute: typeof SoldRoute
   TermsRoute: typeof TermsRoute
@@ -273,11 +325,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/360-shoot': {
+      id: '/360-shoot'
+      path: '/360-shoot'
+      fullPath: '/360-shoot'
+      preLoaderRoute: typeof R360ShootRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -294,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -306,6 +379,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sell-with-us': {
+      id: '/sell-with-us'
+      path: '/sell-with-us'
+      fullPath: '/sell-with-us'
+      preLoaderRoute: typeof SellWithUsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/seller-perks': {
@@ -397,11 +477,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R360ShootRoute: R360ShootRoute,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  SellWithUsRoute: SellWithUsRoute,
   SellerPerksRoute: SellerPerksRoute,
   SoldRoute: SoldRoute,
   TermsRoute: TermsRoute,

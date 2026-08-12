@@ -79,10 +79,10 @@ function SellerPerksPage() {
               Selling again? Tell us about it.
             </h2>
             <Link
-              to="/contact"
+              to="/sell-with-us"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-transform hover:scale-105"
             >
-              Contact our team <ArrowRight className="size-4" />
+              Start your listing <ArrowRight className="size-4" />
             </Link>
           </div>
         </Reveal>

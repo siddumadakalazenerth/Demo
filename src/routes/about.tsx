@@ -4,7 +4,6 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { Reveal } from "@/components/reveal";
 import featureLarge from "@/assets/feature-large.jpg";
-import faqInterior from "@/assets/faq-interior.jpg";
 import heroHouse from "@/assets/hero-house.jpg";
 
 export const Route = createFileRoute("/about")({
@@ -51,9 +50,30 @@ const values = [
 ];
 
 const team = [
-  { name: "Rohan Malhotra", role: "Founder & Principal Advisor" },
-  { name: "Kavya Reddy", role: "Head of Residential" },
-  { name: "Arvind Nair", role: "Commercial Portfolio Lead" },
+  {
+    name: "Rohan Malhotra",
+    role: "Founder & Principal Advisor",
+    bio: "13 years closing luxury and residential deals across Hyderabad and Bengaluru.",
+    photo:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=faces&q=80",
+    ring: "ring-primary",
+  },
+  {
+    name: "Kavya Reddy",
+    role: "Head of Residential",
+    bio: "Leads first-time buyer journeys, from budgeting through to keys in hand.",
+    photo:
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=faces&q=80",
+    ring: "ring-accent",
+  },
+  {
+    name: "Arvind Nair",
+    role: "Commercial Portfolio Lead",
+    bio: "Handles office, retail and mixed-use deals for growing businesses.",
+    photo:
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces&q=80",
+    ring: "ring-primary",
+  },
 ];
 
 function AboutPage() {
@@ -154,19 +174,18 @@ function AboutPage() {
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {team.map((m, i) => (
             <Reveal key={m.name} delay={i * 90}>
-              <div className="overflow-hidden rounded-2xl bg-secondary">
+              <div className="flex h-full flex-col items-center rounded-2xl bg-secondary p-8 text-center">
                 <img
-                  src={faqInterior}
-                  alt=""
-                  width={700}
-                  height={700}
+                  src={m.photo}
+                  alt={m.name}
+                  width={200}
+                  height={200}
                   loading="lazy"
-                  className="h-40 w-full object-cover"
+                  className={`size-28 rounded-full object-cover ring-4 ring-offset-4 ring-offset-secondary ${m.ring}`}
                 />
-                <div className="p-5">
-                  <p className="font-display text-lg font-medium">{m.name}</p>
-                  <p className="text-sm text-muted-foreground">{m.role}</p>
-                </div>
+                <p className="mt-5 font-display text-lg font-medium">{m.name}</p>
+                <p className="text-sm text-muted-foreground">{m.role}</p>
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{m.bio}</p>
               </div>
             </Reveal>
           ))}

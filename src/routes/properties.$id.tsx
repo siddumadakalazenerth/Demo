@@ -36,6 +36,7 @@ import {
 } from "@/lib/properties";
 import { getBuilder } from "@/lib/builders";
 import { companyInfo } from "@/lib/company";
+import { logEnquiry } from "@/lib/enquiries";
 
 export const Route = createFileRoute("/properties/$id")({
   loader: async ({ params }) => {
@@ -283,6 +284,7 @@ function PropertyDetailPage() {
               </p>
               <Link
                 to="/contact"
+                onClick={() => logEnquiry(p.id, p.name, p.city)}
                 className="mt-6 block rounded-full bg-background px-5 py-3 text-center text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5"
               >
                 Request a viewing

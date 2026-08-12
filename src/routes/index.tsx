@@ -301,10 +301,10 @@ function Hero() {
                   See seller perks
                 </Link>
                 <Link
-                  to="/contact"
+                  to="/sell-with-us"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
                 >
-                  List a property <ArrowRight className="size-4" />
+                  Start your listing <ArrowRight className="size-4" />
                 </Link>
               </div>
             </div>

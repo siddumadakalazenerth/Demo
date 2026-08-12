@@ -1,18 +1,39 @@
-import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Menu, LogOut, User, Building2, Heart } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import logo from "@/assets/logo.png";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { useAuth, clearSession, initials } from "@/lib/auth";
 
 const links = [
   { label: "Home", to: "/" },
   { label: "About Us", to: "/about" },
   { label: "Property List", to: "/properties" },
+  { label: "Sell My Property", to: "/sell-with-us" },
   { label: "Pricing", to: "/pricing" },
   { label: "Contact Us", to: "/contact" },
 ] as const;
 
 export function SiteNav({ overlay = false }: { overlay?: boolean }) {
   const [open, setOpen] = useState(false);
+  const session = useAuth();
+  const navigate = useNavigate();
+
+  function handleSignOut() {
+    clearSession();
+    toast.success("Signed out");
+    setOpen(false);
+    navigate({ to: "/" });
+  }
 
   return (
     <nav className={`${overlay ? "absolute inset-x-0 top-0 z-20" : "relative"} px-6 py-5 md:px-10`}>
@@ -53,12 +74,54 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/contact"
-            className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
-          >
-            Sign Up
-          </Link>
+          {session ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button aria-label="My account" className="rounded-full">
+                  <Avatar className="size-10">
+                    <AvatarFallback className="bg-primary text-sm font-medium text-primary-foreground">
+                      {initials(session.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  <p className="truncate text-sm font-medium">{session.name}</p>
+                  <p className="truncate text-xs font-normal text-muted-foreground">
+                    {session.email}
+                  </p>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/account" search={{ tab: "profile" }}>
+                    <User className="size-4" /> My Account
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/account" search={{ tab: "properties" }}>
+                    <Building2 className="size-4" /> My Properties
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/account" search={{ tab: "favorites" }}>
+                    <Heart className="size-4" /> Favorites
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={handleSignOut}>
+                  <LogOut className="size-4" /> Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link
+              to="/login"
+              className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+            >
+              Sign In
+            </Link>
+          )}
           <button
             aria-label="Open menu"
             onClick={() => setOpen((v) => !v)}
@@ -83,6 +146,33 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
               {l.label}
             </Link>
           ))}
+          <div className="mt-1 border-t border-border pt-1">
+            {session ? (
+              <>
+                <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-2.5 text-sm text-foreground hover:bg-secondary"
+                >
+                  My Account
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="block w-full rounded-xl px-4 py-2.5 text-left text-sm text-destructive hover:bg-secondary"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="block rounded-xl px-4 py-2.5 text-sm text-foreground hover:bg-secondary"
+              >
+                Sign In
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </nav>

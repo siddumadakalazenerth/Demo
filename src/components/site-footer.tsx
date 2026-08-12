@@ -25,6 +25,9 @@ const quickLinks = [
 ];
 
 const trustLinks = [
+  { label: "My Account", to: "/account" },
+  { label: "Sell With Us", to: "/sell-with-us" },
+  { label: "Book a 360° Shoot", to: "/360-shoot" },
   { label: "Builders", to: "/builders" },
   { label: "Recently Sold", to: "/sold" },
   { label: "Advice & Guides", to: "/advice" },

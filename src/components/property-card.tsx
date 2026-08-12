@@ -1,12 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import { BedDouble, Bath, MapPin } from "lucide-react";
+import { BedDouble, Bath, MapPin, Heart } from "lucide-react";
+import { useEffect, useState } from "react";
 import { formatPrice, propertyDetails, isNewListing, type Property } from "@/lib/properties";
 import { CardImageCycler } from "@/components/card-image-cycler";
+import { isFavorite, toggleFavorite } from "@/lib/favorites";
 
 export function PropertyCard({ p }: { p: Property }) {
   const detail = propertyDetails[p.id];
   const badges = [...(detail?.tags ?? [])];
   if (detail && isNewListing(detail.listedAt)) badges.unshift("New");
+  // Starts false (matching SSR) and reads the real value post-mount to avoid a
+  // hydration mismatch — same pattern as useAuth() in @/lib/auth.ts.
+  const [saved, setSaved] = useState(false);
+  useEffect(() => setSaved(isFavorite(p.id)), [p.id]);
+
+  function handleFavoriteClick(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    setSaved(toggleFavorite(p.id));
+  }
 
   return (
     <Link
@@ -38,6 +50,15 @@ export function PropertyCard({ p }: { p: Property }) {
               </span>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={handleFavoriteClick}
+            aria-label={saved ? "Remove from favorites" : "Save to favorites"}
+            aria-pressed={saved}
+            className="absolute bottom-3 right-3 grid size-9 place-items-center rounded-full bg-surface/90 text-foreground shadow-sm transition-transform hover:scale-110"
+          >
+            <Heart className={`size-4 ${saved ? "fill-primary text-primary" : ""}`} />
+          </button>
         </div>
         <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
           {p.beds > 0 && (
